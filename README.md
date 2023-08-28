@@ -5,4 +5,9 @@ research project. It was first written in Swift and rewritten in Java. It was th
 rewritten again in an object-oriented programming style. It was a quick
 hack, and it needs a lot of cleanup and refactoring. A perfect code base to teach
 the value of software developement fundamentals!
+
+Submitting assignments, (Step 1)
+git add --all, (Step 2)
+git commit -m "comment", (Step 3)
+git push 
 <br>
