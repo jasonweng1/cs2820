@@ -58,4 +58,8 @@ public class WorkLoadDescription extends VisualizationObject {
     this.inputFileName = gf.getGraphFileName();
     description = new Description(inputGraphString);
   }
+  public static void main(String[] args) {
+	  WorkLoadDescription workloadDescription = new WorkLoadDescription ("StresTest.txt");
+	  
+  }
 }
