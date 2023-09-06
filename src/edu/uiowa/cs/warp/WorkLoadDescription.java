@@ -62,12 +62,10 @@ public class WorkLoadDescription extends VisualizationObject {
     description = new Description(inputGraphString);
   }
   public static void main(String[] args) {
-	// Creating a WorkLoadDescription object with filename "StressTest.txt"
+	  // Creating a WorkLoadDescription object with filename "StressTest.txt"
       WorkLoadDescription p = new WorkLoadDescription("StressTest.txt");
-
       // Taking the header from the input filename by removing ".txt" extension
       String head = p.getInputFileName().replace(".txt", "");
-
       // Creating an ArrayList that can store lines from the WorkLoadDescription, excluding the last line
       ArrayList<String> lines = new ArrayList<>();
       for (int i = 1; i < p.visualization().size(); i++) {
@@ -77,21 +75,16 @@ public class WorkLoadDescription extends VisualizationObject {
               lines.add(line);
           }
       }
-
       // Sorting each of the line in order
       Collections.sort(lines);
-
       // Reversing order of lines
       Collections.reverse(lines);
-
       // Print the header
       System.out.println(head);
-
       // sorted lines is printed in reverse order 
       for (int j = 0; j < lines.size(); j++) {
           System.out.println("Flow " + (j + 1) + ": " + lines.get(j));
       }
-	
   }
   }
 
