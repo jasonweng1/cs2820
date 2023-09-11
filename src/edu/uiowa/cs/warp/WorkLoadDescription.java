@@ -3,6 +3,9 @@
  */
 package edu.uiowa.cs.warp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Reads the input file, whose name is passed as input parameter to the constructor, and builds a
  * Description object based on the contents. Each line of the file is an entry (string) in the
@@ -58,4 +61,30 @@ public class WorkLoadDescription extends VisualizationObject {
     this.inputFileName = gf.getGraphFileName();
     description = new Description(inputGraphString);
   }
-}
+  public static void main(String[] args) {
+	  // Creating a WorkLoadDescription object with filename "StressTest.txt"
+      WorkLoadDescription p = new WorkLoadDescription("StressTest.txt");
+      // Taking the header from the input filename by removing ".txt" extension
+      String head = p.getInputFileName().replace(".txt", "");
+      // Creating an ArrayList that can store lines from the WorkLoadDescription, excluding the last line
+      ArrayList<String> lines = new ArrayList<>();
+      for (int i = 1; i < p.visualization().size(); i++) {
+          String line = p.visualization().get(i);
+          // Checking each line for "{}", and exclude each line that contain it 
+          if (!line.contains("{") && !line.contains("}")) {
+              lines.add(line);
+          }
+      }
+      // Sorting each of the line in order
+      Collections.sort(lines);
+      // Reversing order of lines
+      Collections.reverse(lines);
+      // Print the header
+      System.out.println(head);
+      // the lines are sorted then it will print in reverse order 
+      for (int j = 0; j < lines.size(); j++) {
+          System.out.println("Flow " + (j + 1) + ": " + lines.get(j));
+      }
+  }
+  }
+
