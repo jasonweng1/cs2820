@@ -81,7 +81,7 @@ public class WorkLoadDescription extends VisualizationObject {
       Collections.reverse(lines);
       // Print the header
       System.out.println(head);
-      // sorted lines is printed in reverse order 
+      // the lines are sorted then it will print in reverse order 
       for (int j = 0; j < lines.size(); j++) {
           System.out.println("Flow " + (j + 1) + ": " + lines.get(j));
       }
