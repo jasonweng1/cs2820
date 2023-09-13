@@ -41,10 +41,10 @@ import edu.uiowa.cs.warp.Visualization.WorkLoadChoices;
 public class Warp {
 	
   /**
-   * default
+   * default number of wireless channels available for scheduling (command line option)
    */
-  private static final Integer NUM_CHANNELS = 16; // default number of wireless channels available
-                                                  // for scheduling (command line option)
+  private static final Integer NUM_CHANNELS = 16; 
+                                                
   private static final Double MIN_LQ = 0.9; // default minimum Link Quality in system (command line
                                             // option)
   private static final Double E2E = 0.99; // default end-to-end reliability for all flows (command
