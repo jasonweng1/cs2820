@@ -13,3 +13,7 @@ git checkout main, (Step 4)
 git merge HW....., (Step 5)
 git push, (Step 6)
 <br>
+
+For Fall 2023 CS:2820 HW2, Phillipp Cun developed JavaDoc comments for the
+odd-numbered steps of F23-HW2.pdf and Jason Weng developed JavaDoc comments 
+for the even-numbered steps.
