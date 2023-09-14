@@ -6,27 +6,68 @@ package edu.uiowa.cs.warp;
 import java.io.File;
 
 /**
- * This class creates and displays visualizations for the WARP system.
+ * This class handles visualizations for the WARP system.
+ * It creates and displays visualizations based on system or workload choices.
  * 
  * @author sgoddard
  * @version 1.5
  */
 public class VisualizationImplementation implements Visualization {
 
+  /**
+   * Holds the visualization content.
+   */
   private Description visualization;
+  
+  /**
+   * Stores content to be written to a file.
+   */
   private Description fileContent;
+  
+  /**
+   * Manages the GUI window for displaying the visualization.
+   */
   private GuiVisualization window;
+  
+  /**
+   * The name of the file where the visualization will be saved.
+   */
   private String fileName;
+  
+  /**
+   * The name of the input file used in the visualization.
+   */
   private String inputFileName;
+  
+  /**
+   * A template for generating file names in the output directory.
+   */
   private String fileNameTemplate;
+  
+  /**
+   * Handles file operations.
+   */
   private FileManager fm = null;
+  
+  /**
+   * Represents the WARP system interface.
+   */
   private WarpInterface warp = null;
+  
+  /**
+   * Represents the system's workload.
+   */
   private WorkLoad workLoad = null;
+  
+  /**
+   * Manages the creation and display of visualizations.
+   */
   private VisualizationObject visualizationObject;
 
 
   /**
-   * Constructs a VisualizationImplementation for system-related visualizations.
+   * Constructs a VisualizationImplementation for system-related 
+   * visualizations.
    *
    * @param warp			The WARP interface.
    * @param outputDirectory The directory for output files.
@@ -43,7 +84,8 @@ public class VisualizationImplementation implements Visualization {
   }
 
   /**
-   * Constructs a VisualizationImplementation for workload-related visualizations.
+   * Constructs a VisualizationImplementation for workload-related 
+   * visualizations.
    *
    * @param workLoad		The workload.
    * @param outputDirectory	The directory for output files.
@@ -59,6 +101,9 @@ public class VisualizationImplementation implements Visualization {
     createVisualization(choice);
   }
 
+  /**
+   * Displays the visualization.
+   */
   @Override
   public void toDisplay() {
     // System.out.println(displayContent.toString());
@@ -68,11 +113,19 @@ public class VisualizationImplementation implements Visualization {
     }
   }
 
+  /**
+   * Writes the visualization to a file.
+   */
   @Override
   public void toFile() {
     fm.writeFile(fileName, fileContent.toString());
   }
 
+  /**
+   * Returns the string representation of the visualization.
+   *
+   * @return The string representation.
+   */
   @Override
   public String toString() {
     return visualization.toString();
@@ -165,7 +218,8 @@ public class VisualizationImplementation implements Visualization {
   }
 
   /**
-   * Creates a filename template based on the output directory and input filename.
+   * Creates a filename template based on the output directory and input 
+   * filename.
    *
    * @param	outputDirectory The output directory.
    * @return The filename template.
