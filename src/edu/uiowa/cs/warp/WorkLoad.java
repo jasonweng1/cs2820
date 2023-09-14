@@ -16,9 +16,12 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
- * Build the nodes and flows for the workload described in the workload description file, whose name
- * is passed into the Constructor via the parameter inputFileName. Good default values for the
- * constructors are m = 0.9, e2e = 0.99, and numFaults = 1 when the second constructor is used.
+ * Builds the nodes and flows for the workload described in the workload 
+ * description file, whose name is passed into the Constructor via the 
+ * parameter inputFileName. 
+ * 
+ * Good default values for the constructors are m = 0.9, e2e = 0.99, and 
+ * numFaults = 1 when the second constructor is used.
  * 
  * @author sgoddard
  * @version 1.4
@@ -47,6 +50,14 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
   private ArrayList<String> flowNamesInPriorityOrder = new ArrayList<>();
   // private FileManager fm;
 
+  
+  /**
+   * Creates a WorkLoad object with specified parameters and input file.
+   *
+   * @param m				The minimum packet reception rate.
+   * @param e2e				The end-to-end reliability.
+   * @param inputFileName	The name of the input file describing the workload.
+   */
   WorkLoad(Double m, Double e2e, String inputFileName) {
     super(inputFileName);
     setDefaultParameters();
@@ -59,6 +70,15 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
     WorkLoadListener.buildNodesAndFlows(this);
   }
 
+  /**
+   * Creates a WorkLoad object with specified fault tolerance, parameters, and 
+   * input file.
+   *
+   * @param numFaults		The number of faults tolerated.
+   * @param m				The minimum packet reception rate.
+   * @param e2e				The end-to-end reliability.
+   * @param inputFileName	The name of the input file describing the workload.
+   */
   WorkLoad(Integer numFaults, Double m, Double e2e, String inputFileName) {
     super(inputFileName);
     setDefaultParameters();
