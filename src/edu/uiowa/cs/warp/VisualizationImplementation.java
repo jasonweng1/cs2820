@@ -6,6 +6,8 @@ package edu.uiowa.cs.warp;
 import java.io.File;
 
 /**
+ * This class creates and displays visualizations for the WARP system.
+ * 
  * @author sgoddard
  * @version 1.5
  */
@@ -23,6 +25,13 @@ public class VisualizationImplementation implements Visualization {
   private VisualizationObject visualizationObject;
 
 
+  /**
+   * Constructs a VisualizationImplementation for system-related visualizations.
+   *
+   * @param warp			The WARP interface.
+   * @param outputDirectory The directory for output files.
+   * @param choice			The system choice.
+   */
   public VisualizationImplementation(WarpInterface warp, String outputDirectory,
       SystemChoices choice) {
     this.fm = new FileManager();
@@ -33,6 +42,13 @@ public class VisualizationImplementation implements Visualization {
     createVisualization(choice);
   }
 
+  /**
+   * Constructs a VisualizationImplementation for workload-related visualizations.
+   *
+   * @param workLoad		The workload.
+   * @param outputDirectory	The directory for output files.
+   * @param choice			The workload choice.
+   */
   public VisualizationImplementation(WorkLoad workLoad, String outputDirectory,
       WorkLoadChoices choice) {
     this.fm = new FileManager();
@@ -61,7 +77,12 @@ public class VisualizationImplementation implements Visualization {
   public String toString() {
     return visualization.toString();
   }
-
+  
+  /**
+   * Creates the visualization based on the chosen system.
+   *
+   * @param choice The system choice.
+   */
   private void createVisualization(SystemChoices choice) {
     switch (choice) { // select the requested visualization
       case SOURCE:
@@ -104,6 +125,11 @@ public class VisualizationImplementation implements Visualization {
     }
   }
 
+  /**
+   * Creates the visualization based on the chosen workload.
+   *
+   * @param choice The workload choice.
+   */
   private void createVisualization(WorkLoadChoices choice) {
     switch (choice) { // select the requested visualization
       case COMUNICATION_GRAPH:
@@ -125,6 +151,11 @@ public class VisualizationImplementation implements Visualization {
     }
   }
 
+  /**
+   * Creates the visualization object and associated content.
+   *
+   * @param obj The visualization object.
+   */
   private <T extends VisualizationObject> void createVisualization(T obj) {
     visualization = obj.visualization();
     fileContent = obj.fileVisualization();
@@ -133,6 +164,12 @@ public class VisualizationImplementation implements Visualization {
     visualizationObject = obj;
   }
 
+  /**
+   * Creates a filename template based on the output directory and input filename.
+   *
+   * @param	outputDirectory The output directory.
+   * @return The filename template.
+   */
   private String createFileNameTemplate(String outputDirectory) {
     String fileNameTemplate;
     var workingDirectory = fm.getBaseDirectory();
