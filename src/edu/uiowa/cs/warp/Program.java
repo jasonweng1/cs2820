@@ -63,6 +63,11 @@ public class Program implements SystemAttributes {
     this.deadlineMisses = new Description();
   }
 
+  /**
+   * Returns the associated workload object.
+   * 
+   * @return The WorkLoad object associated with this instance.
+   */
   public WorkLoad toWorkLoad() {
     return workLoad;
   }
@@ -1141,7 +1146,12 @@ public class Program implements SystemAttributes {
   private void setSchedule(ProgramSchedule schedule) {
     scheduleBuilt = schedule;
   }
-
+  
+  /**
+   * Returns the program schedule that has been built.
+   *
+   * @return The program schedule.
+   */
   public ProgramSchedule getSchedule() {
     return scheduleBuilt;
   }
@@ -1202,6 +1212,12 @@ public class Program implements SystemAttributes {
     return workLoad.getNumFaults();
   }
 
+  /**
+   * Returns a mapping of node names to their corresponding indices in the 
+   * schedule table.
+   *
+   * @return A HashMap containing node names as keys indices as values.
+   */
   public HashMap<String, Integer> getNodeMapIndex() {
     var orderedNodes = workLoad.getNodeNamesOrderedAlphabetically(); // create an array of node
                                                                      // names

@@ -16,9 +16,12 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
- * Build the nodes and flows for the workload described in the workload description file, whose name
- * is passed into the Constructor via the parameter inputFileName. Good default values for the
- * constructors are m = 0.9, e2e = 0.99, and numFaults = 1 when the second constructor is used.
+ * Builds the nodes and flows for the workload described in the workload 
+ * description file, whose name is passed into the Constructor via the 
+ * parameter inputFileName. 
+ * 
+ * Good default values for the constructors are m = 0.9, e2e = 0.99, and 
+ * numFaults = 1 when the second constructor is used.
  * 
  * @author sgoddard
  * @version 1.4
@@ -47,6 +50,14 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
   private ArrayList<String> flowNamesInPriorityOrder = new ArrayList<>();
   // private FileManager fm;
 
+  
+  /**
+   * Creates a WorkLoad object with specified parameters and input file.
+   *
+   * @param m				The minimum packet reception rate.
+   * @param e2e				The end-to-end reliability.
+   * @param inputFileName	The name of the input file describing the workload.
+   */
   WorkLoad(Double m, Double e2e, String inputFileName) {
     super(inputFileName);
     setDefaultParameters();
@@ -59,6 +70,15 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
     WorkLoadListener.buildNodesAndFlows(this);
   }
 
+  /**
+   * Creates a WorkLoad object with specified fault tolerance, parameters, and 
+   * input file.
+   *
+   * @param numFaults		The number of faults tolerated.
+   * @param m				The minimum packet reception rate.
+   * @param e2e				The end-to-end reliability.
+   * @param inputFileName	The name of the input file describing the workload.
+   */
   WorkLoad(Integer numFaults, Double m, Double e2e, String inputFileName) {
     super(inputFileName);
     setDefaultParameters();
@@ -147,6 +167,11 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
   }
 
   /**
+   * Retrieves an ArrayList of flow names in priority order. This method 
+   * returns a list of flow names based on their priority order. The priority
+   * determines the order in which the flows are processed or analyzed. Lastly it will return 
+   * An ArrayList of flow names in the order of their priority.
+   * 
    * @return the flowNamesInPriorityOrder
    */
   public ArrayList<String> getFlowNamesInPriorityOrder() {
@@ -320,7 +345,14 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
     }
     return priority;
   }
-
+/**
+ * Sets the priority of a specified flow to a given value. 
+ * This method allows you to change the priority of the specified flow to the provided priority
+ * value. Priority can affect the order in which flows are processed or analyzed, depending on
+ * the application's logic or scheduling algorithms.
+ * @param flowName The name of the flow for which to set the priority.
+ * @param priority The new priority value to assign to the flow.
+ */
   public void setFlowPriority(String flowName, Integer priority) {
     var flowNode = getFlow(flowName);
     flowNode.setPriority(priority);
@@ -429,14 +461,30 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
       finalizeFlowWithE2eParameters(flowName);
     }
   }
-
+/**
+ * Calculates and retrieves the next release time for a specified flow at or after a given time. This method calculates the next release time for the specified flow that occurs at or after
+ * the given current time. It considers the flow's release time and ensures that the calculated
+ * release time is not earlier than the provided current time. 
+ * @param flowName The name of the flow for which to calculate the next release time.
+ * @param currentTime The current time to use as the reference point.
+ * @return The next release time for the specified flow, which is the earliest release time
+ * at or after the provided current time.
+ */
   public Integer nextReleaseTime(String flowName, Integer currentTime) {
     var flow = getFlow(flowName);
     flow.setLastUpdateTime(currentTime);
     flow.setNextReleaseTime(currentTime);
     return flow.getReleaseTime(); // next release Time at or after currentTime
   }
-
+/**
+ * Calculates and retrieves the next absolute deadline for a specified flow after a given time.
+ * This method calculates the absolute deadline for the specified flow that occurs immediately
+ * following the given time. It considers the flow's release time and deadline to determine the
+ * next absolute deadline.
+ * @param flowName the name of the flow for which to calculate the next absolute deadline.
+ * @param currentTime The current time to use as the reference point.
+ * @return The next absolute deadline for the specified flow after the given current time.
+ */
   public Integer nextAbsoluteDeadline(String flowName, Integer currentTime) {
     var flow = getFlow(flowName);
     flow.setLastUpdateTime(currentTime);
@@ -730,7 +778,15 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
     }
     return index;
   }
-
+/**
+ * Retrieves an array of node names in the order they appear in a specified flow. This method retrieves the node names from the specified flow and returns them as an array.
+ * The order of the node names in the array corresponds to their order in the flow specification
+ * or graph file, preserving the same order.
+ * 
+ * @param flowName The name of the flow for which to retrieve the node names.
+ * @return An array of node names in the order they exist in the specified flow, or an empty array
+ * if the flow does not exist.
+ */
   public String[] getNodesInFlow(String flowName) {
     // get the flow node for requested Flow and then loop through the
     // nodes in the flow to create an array of the node names in
@@ -750,7 +806,14 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
     }
     return nodes;
   }
-
+/**
+ * Calculates and retrieves the hyper-period of all flows in the workload.
+ * The hyper-period is the least common multiple (LCM) of the periods of all flows in the workload.
+ * This method iterates through all flow names, calculates the LCM of their periods, and determines
+ * the hyper-period. It will then return The hyper-period, which is the LCM of all flow periods in the workload.
+ * 
+ * @return
+ */
   public Integer getHyperPeriod() {
     var hyperPeriod = 1; // hyperPeriod is LCM of all periods. Initialize to 1
     for (String flowName : getFlowNames()) {
@@ -774,6 +837,18 @@ public class WorkLoad extends WorkLoadDescription implements ReliabilityParamete
 
   // return an array of the number of transmission needed for each
   // link (i.e. edge in the flow graph) to meet E2E target
+  /**
+   * Retrieves an array of the number of transmission attempts required per link in a specified flow.
+   * This method calculates and returns an array that contains the number of transmission attempts
+   * required for each link within the specified flow. It extracts this information from the provided
+   * flow's data, excluding the last element, which represents the sum of attempts for all links.
+   * The parameters flowName The name of the flow for which to retrieve transmission attempt information.
+   * It will return An array of integers, where each element represents the number of transmission attempts
+   * required for a specific link in the flow, in the order of the links.
+   * 
+   * @param flowName
+   * @return
+   */
   public Integer[] getNumTxAttemptsPerLink(String flowName) {
     var flow = getFlow(flowName);
     var linkTxAndTotalCost = new ArrayList<Integer>(flow.getLinkTxAndTotalCost());

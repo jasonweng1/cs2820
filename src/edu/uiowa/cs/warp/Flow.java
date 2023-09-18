@@ -3,6 +3,12 @@ package edu.uiowa.cs.warp;
 import java.util.ArrayList;
 
 /**
+ * Represents a Flow in the WARP system. Flows are used for scheduling and 
+ * reliability analysis.
+ * 
+ * Flows contain information about their priority, index, nodes, edges, and 
+ * other attributes. 
+ * 
  * @author sgoddard
  *
  */
@@ -29,8 +35,12 @@ public class Flow extends SchedulableObject implements Comparable<Flow>{
     Node nodePredecessor;
     Edge edgePredecessor;
     
-    /*
+    /**
      * Constructor that sets name, priority, and index
+     *
+     * @param name     The name of the flow.
+     * @param priority The priority of the flow.
+     * @param index    The index of the flow.
      */
     Flow (String name, Integer priority, Integer index){
     	super(name, priority, DEFAULT_PERIOD, DEFAULT_DEADLINE, DEFAULT_PHASE);
@@ -49,7 +59,7 @@ public class Flow extends SchedulableObject implements Comparable<Flow>{
     }
     
     /*
-     * Constructor
+     * Constructs a default Flow.
      */
     Flow () {
     	super();

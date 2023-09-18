@@ -4,19 +4,47 @@ import edu.uiowa.cs.warp.WarpDSL.InstructionParameters;
 import java.util.HashMap;
 
 /**
+ * The LatencyAnalysis class is responsible for analyzing latency in a given program.
+ * and workload configuration. It computes and reports the maximum latency for each 
+ * flow instance and checks if any of them miss their deadlines. The analysis results 
+ * are stored in a object for reporting.
+ * 
  * @author sgoddard2
  * @version 1.6
  */
 public class LatencyAnalysis {
-
+  /**
+   * Constant string used to indicate that a flow instance missed its deadline.
+   */
   private static String DEADLINE_MISS = " => DEADLINE MISS";
+  /**
+   * A separator string used to visually separate different flow reports.
+   */
   private static String FLOW_SEPARATOR = "******************************\n";
+  /**
+   * Description object to store the latency analysis report.
+   */
   private Description latencyReport;
+  /**
+   * The Program configuration object representing the program being analyzed.
+   */
   private Program program;
+  /**
+   * The WorkLoad configuration object representing the workload associated with the program.
+   */
   private WorkLoad workload;
+  /**
+   * The ProgramSchedule object representing the schedule of program instructions.
+   */
   private ProgramSchedule programTable;
+  /**
+   * A mapping of node names to their corresponding indexes in the program schedule.
+   */
   private HashMap<String, Integer> nodeIndex;
-
+/**
+ * Constructs a LatencyAnalysis object using a WarpInterface configuration.
+ * @param warp The WarpInterface configuration from which to derive the program and workload.
+ */
   LatencyAnalysis(WarpInterface warp) {
     this.latencyReport = new Description();
     this.program = warp.toProgram();
@@ -24,7 +52,10 @@ public class LatencyAnalysis {
     this.programTable = program.getSchedule();
     this.nodeIndex = program.getNodeMapIndex();
   }
-
+/**
+ * Constructs a LatencyAnalysis object using a provided Program configuration.
+ * @param program program The Program configuration to be analyzed.
+ */
   LatencyAnalysis(Program program) {
     this.latencyReport = new Description();
     this.program = program;
@@ -32,7 +63,10 @@ public class LatencyAnalysis {
     this.programTable = program.getSchedule();
     this.nodeIndex = program.getNodeMapIndex();
   }
-
+/**
+ * Computes and generates a latency analysis report for the configured program and workload.
+ * @return
+ */
   public Description latencyReport() {
     /*
      * Build a latency report. Flows are output in priority order (based on the priority used to
@@ -120,7 +154,14 @@ public class LatencyAnalysis {
     }
     return latencyReport;
   }
-
+/**
+ * Counts the number of matching transmission attempts in a program instruction. 
+ * @param flow
+ * @param src
+ * @param snk
+ * @param instr
+ * @return
+ */
   public Integer numMatchingTx(String flow, String src, String snk, String instr) {
     var numTx = 0;
 
